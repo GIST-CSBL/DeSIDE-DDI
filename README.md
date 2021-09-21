@@ -1,4 +1,4 @@
-# DDI-prediction
+# DeSIDE-DDI
 
 - Feature_generation_model
   - inputs: Compound fingerprints and properties
