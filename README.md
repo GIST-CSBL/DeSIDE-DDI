@@ -8,18 +8,24 @@ We provide example data, weights of constructed models for use, and toy example 
 - Feature generation model
   - inputs: Compound fingerprints and properties
   - output: predicted gene expression
-  
+  - Example: 
+  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1m7fyZwFPp_85wKvFjbCwRCIOScrJEUtX?usp=sharing]
+
 
 - DDI prediction model
   - inputs: predicted gene expressions of drug pairs
   - output: side effect score
   - Includes model construction and validation
+  - DDI prediction Online: 
   [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1XslE3XNsjm-dXwxrk_eVST6kALdwmvkd?usp=sharing]
 
   
-- Feature_analysis
+- Feature_analysis (jupyter notebook)
   - How to extract significant genes given drug pairs
   - Visualization of changed latent features
   
-  
+
+
+
+
 Developed by Eunyoung Kim
