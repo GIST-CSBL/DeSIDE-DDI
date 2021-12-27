@@ -14,6 +14,7 @@ We provide example data, weights of constructed models for use, and toy example 
   - inputs: predicted gene expressions of drug pairs
   - output: side effect score
   - Includes model construction and validation
+  - DDI prediction example with
   [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1XslE3XNsjm-dXwxrk_eVST6kALdwmvkd?usp=sharing]
 
   
