@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 # input file names (CSV formatted)
-def load_data(file_path = '../data/', train_x, train_y, test_x, test_y):
+def load_data(file_path = '', train_x, train_y, test_x, test_y):
     
     train_x = pd.read_csv(file_path+train_x, index_col=0)
     train_y = pd.read_csv(file_path+train_y, index_col=0)
