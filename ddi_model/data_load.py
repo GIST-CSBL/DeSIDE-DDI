@@ -22,4 +22,4 @@ def load_data(file_path, train_x, train_y, test_x, test_y):
     return double_train_data, test_x, test_y
 
 def load_exp(file_path='../data/'):
-    return pd.read_csv(file_path + 'twosides_predicted_expression_scaled.csv', index_col=0)
+    return pd.read_csv(file_path + 'twosides_predicted_expression_scaled.csv')
