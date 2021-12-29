@@ -178,10 +178,10 @@ class DDI_model(object):
         self.model.load_weights(model_load_path+model_name)
         self.optimal_threshold = pd.read_csv(model_load_path+threshold_name, index_col=0)
         
-    def predict(self, x, exp_df):
+    def predict(self, x, exp_df, batch_size=1024):
         y = np.zeros(x.shape[0])
         
-        test_gen = custom_dataGenerator(x, y, batch_size=self.batch_size, exp_df=exp_df, shuffle=False)
+        test_gen = custom_dataGenerator(x, y, batch_size=batch_size, exp_df=exp_df, shuffle=False)
         pred_y = self.model.predict_generator(generator=test_gen)
         predicted_result = mean_predicted_score(pd.concat([x, pd.DataFrame(y, columns=['label'])], axis=1), pred_y, with_plot=False)
         predicted_label, thr = calculate_predicted_label_ver3(predicted_result, self.optimal_threshold)
