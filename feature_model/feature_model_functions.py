@@ -31,3 +31,10 @@ def split_dataset_descriptor_both(df):
     y_label = temp.iloc[:,100:]
 
     return x_fp, x_desc, y_label
+
+def split_features(df):
+    x_fp = df.filter(regex='fp')
+    temp = df.drop(x_fp, axis=1)
+    x_desc = temp
+    
+    return x_fp, x_desc

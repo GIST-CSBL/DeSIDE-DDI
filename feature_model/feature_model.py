@@ -12,11 +12,11 @@ from keras import metrics
 
 
 class Feature_model(object):
-    def __init__(self, model_save_path, model_name, struct_only=False, property_only=False, save_best_only=True, \
+    def __init__(self,struct_only=False, property_only=False, save_best_only=True, \
                  validation_split=0.1, batch_size=64, epochs=1000, cosineAnnealing_tmax=20, eta_max=1e-4):
         
-        self.model_save_path = model_save_path
-        self.model_name = model_name
+#         self.model_save_path = model_save_path
+#         self.model_name = model_name
         self.struct_only = struct_only
         self.property_only = property_only
         self.save_best_only = save_best_only
@@ -90,7 +90,10 @@ class Feature_model(object):
         self.callbacks.append(checkpoint)
         self.callbacks.append(CosineAnnealingScheduler(T_max=self.t_max, eta_max=self.eta_max))
                 
-    def train(self, train_x, train_y):
+    def train(self, train_x, train_y, model_save_path, model_name):
+        self.model_save_path = model_save_path
+        self.model_name = model_name
+        
         self.callbacks = []
         self.set_checkpoint()
         
