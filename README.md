@@ -20,7 +20,6 @@ We provide example data, weights of constructed models for use, and toy example 
   - DDI prediction Online: 
 =======
   - DDI prediction example with
->>>>>>> 4ed67a1457d95bbbc4ee26c6ef6cd63f9d97a26f
   [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1XslE3XNsjm-dXwxrk_eVST6kALdwmvkd?usp=sharing]
 
   
