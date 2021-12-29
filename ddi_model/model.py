@@ -7,9 +7,8 @@ from keras.optimizers import Adam
 
 from DeSIDE_DDI_functions import *
 
-
 class DDI_model(object):
-    def __init__(self, model_save_path, model_name, input_drug_dim=978, input_se_dim=1, drug_emb_dim=100, se_emb_dim=100, output_dim=1, margin=1, drug_activation='elu', init_lr=0.0001, decay_rate=0.9, decay_steps=2, batch_size=1024):
+    def __init__(self,input_drug_dim=978, input_se_dim=1, drug_emb_dim=100, se_emb_dim=100, output_dim=1, margin=1, drug_activation='elu'):
         
         self.input_drug_dim = input_drug_dim
         self.input_se_dim = input_se_dim
@@ -18,13 +17,7 @@ class DDI_model(object):
         self.output_dim = output_dim
         self.margin = margin
         self.drug_activation = drug_activation
-        self.model_save_path = model_save_path
-        self.model_name = model_name
-        self.init_lr = init_lr
-        self.decay_rate = decay_rate
-        self.decay_steps = decay_steps
-        self.batch_size = batch_size
-        
+
         self.callbacks = []
         self.model = self.build()
         
@@ -113,12 +106,22 @@ class DDI_model(object):
             return final_loss
         return custom_margin_loss
         
+    def get_model_summary(self):
+        return self.model.summary()
+    
     def set_checkpoint(self):
         checkpoint= CustomModelCheckPoint(save_path=self.model_save_path, model_name=self.model_name, \
                                       init_learining_rate=self.init_lr, decay_rate=self.decay_rate, decay_steps=self.decay_steps)
         self.callbacks.append(checkpoint)
     
-    def train(self, train_data, exp_df, split_frac, sampling_size):
+    def train(self, train_data, exp_df, split_frac, sampling_size, model_save_path, model_name, init_lr=0.0001, decay_rate=0.9, decay_steps=2, batch_size=1024):
+        self.model_save_path = model_save_path
+        self.model_name = model_name
+        self.init_lr = init_lr
+        self.decay_rate = decay_rate
+        self.decay_steps = decay_steps
+        self.batch_size = batch_size
+        
         self.callbacks = []
         self.set_checkpoint()
         
@@ -126,7 +129,7 @@ class DDI_model(object):
 
         for n in range(sampling_size):
             print(n, ' Sample =======')
-            cv_test = train_data.groupby(['SE', 'label']).apply(pd.DataFrame.sample, frac=0.01)
+            cv_test = train_data.groupby(['SE', 'label']).apply(pd.DataFrame.sample, frac=split_frac)
             cv_test_x = cv_test.reset_index(drop=True).iloc[:,:3]
             cv_test_y = cv_test.reset_index(drop=True).iloc[:,-1]
 
@@ -185,4 +188,3 @@ class DDI_model(object):
         predicted_label = predicted_label[['drug1','drug2','SE','predicted_label','predicted_score']]
         
         return predicted_label
-       

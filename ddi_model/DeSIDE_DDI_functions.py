@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 
 import keras
+import keras.backend as K
 from keras.callbacks import ModelCheckpoint
 from tensorflow.keras.utils import Sequence
 from tensorflow.keras.utils import to_categorical
