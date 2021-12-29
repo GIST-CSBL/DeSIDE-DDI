@@ -12,19 +12,10 @@ from keras import metrics
 
 
 class Feature_model(object):
-    def __init__(self,struct_only=False, property_only=False, save_best_only=True, \
-                 validation_split=0.1, batch_size=64, epochs=1000, cosineAnnealing_tmax=20, eta_max=1e-4):
-        
-#         self.model_save_path = model_save_path
-#         self.model_name = model_name
+    def __init__(self,struct_only=False, property_only=False):
+
         self.struct_only = struct_only
         self.property_only = property_only
-        self.save_best_only = save_best_only
-        self.validation_split = validation_split
-        self.batch_size = batch_size
-        self.epochs = epochs
-        self.t_max = cosineAnnealing_tmax
-        self.eta_max = eta_max
         
         self.structure_dim = 1024
         self.property_dim = 100
@@ -90,14 +81,17 @@ class Feature_model(object):
         self.callbacks.append(checkpoint)
         self.callbacks.append(CosineAnnealingScheduler(T_max=self.t_max, eta_max=self.eta_max))
                 
-    def train(self, train_x, train_y, model_save_path, model_name):
+    def train(self, train_x, train_y, model_save_path, model_name, validation_split=0.1, batch_size=64, epochs=1000, cosineAnnealing_tmax=20, eta_max=1e-4, save_best_only=True):
         self.model_save_path = model_save_path
         self.model_name = model_name
+        self.t_max = cosineAnnealing_tmax
+        self.eta_max = eta_max
+        self.save_best_only = save_best_only
         
         self.callbacks = []
         self.set_checkpoint()
         
-        self.model.fit(train_x, train_y, validation_split=self.validation_split, shuffle=True, verbose=0, batch_size=self.batch_size, epochs=self.epochs, callbacks=self.callbacks)
+        self.model.fit(train_x, train_y, validation_split=validation_split, shuffle=True, verbose=0, batch_size=batch_size, epochs=epochs, callbacks=self.callbacks)
         self.history = self.model.history
     
     def test(self, test_x, test_y):
